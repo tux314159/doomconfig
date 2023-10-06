@@ -85,4 +85,4 @@
 
 ;;; Package config
 ;; vterm
-(setq! )
+(setq! vterm-timer-delay 0.001)
