@@ -107,18 +107,21 @@
   ; find the end of the number
   (while (is-digit (following-char)) (forward-char))
   (setq num-end-point (point))
-  (list num-start-point num-end-point))
+  (cons num-start-point num-end-point))
 
 (defun get-num-lit (pts)
   (string-to-number (buffer-substring (car pts) (cdr pts))))
 
 (defun inc-num-lit ()
   (let* ((pts (find-num-lit))
-         (len (- (cadr pts) (car pts)))
+         (len (- (cdr pts) (car pts)))
          (new-num (number-to-string (+ 1 (get-num-lit pts)))))
-    (if (length new-num < len)  ; need 0-padding
-        (setq new-num (concat (make-string (- len new-num) ?0) new-num))
-    ))
+    (setq new-num  ; add 0-padding if needed
+          (concat (make-string (max 0 (- len new-num)) ?0) new-num))
+    ; delete old number and insert new one
+    (delete-region (car pts) (cdr pts))
+    (goto-char (car pts))
+    (insert new-num)))
 
 ;;; Package config
 ;; vterm
