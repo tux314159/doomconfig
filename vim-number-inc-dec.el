@@ -10,10 +10,10 @@
   ;; Find the start of the number
   (if (is-digit (char-after))       ; we are in a number already
       (progn
-        (while (and (not-nl (char-after)) (is-digit c))
+        (while (and (not-nl (char-after)) (is-digit (char-after))
           (backward-char))
         (forward-char))                 ; else we end up one before
-    (while (and (not (= (char-after) ?\n)) (not (is-digit c)))
+    (while (and (not (= (char-after) ?\n)) (not (is-digit (char-after)))
       (forward-char)))
   (setq num-start-point (point))
   ;; Find the end of the number
