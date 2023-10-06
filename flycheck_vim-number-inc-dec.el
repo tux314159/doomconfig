@@ -13,18 +13,16 @@
       (progn
         (while (and (not-nl (char-after)) (is-digit (char-after))
                     (backward-char))
-          (forward-char))  ; else we end up one before
-        ;; Search for a number
-        (while (and (not-nl (char-after)) (not (is-digit (char-after))))
-          (forward-char))))
+          (forward-char)))  ; else we end up one before
+    ;; Search for a number
+    (while (and (not-nl (char-after)) (not (is-digit (char-after))))
+      (forward-char)))
   (setq num-start-point (point))
   ;; Find the end of the number
   (while (and (is-digit (char-after)) (not-nl (char-after)))
     (forward-char))
   (setq num-end-point (point))
   ;; Ensure we actually found a number
-  (message (number-to-string num-start-point))
-  (message (number-to-string num-end-point))
   (if (= num-start-point num-end-point)
       'nil
     (cons num-start-point num-end-point)))
