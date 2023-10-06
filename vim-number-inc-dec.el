@@ -19,9 +19,12 @@
           (forward-char))))
   (setq num-start-point (point))
   ;; Find the end of the number
-  (while (and (is-digit (char-after)) (not-nl (char-after))) (forward-char))
+  (while (and (is-digit (char-after)) (not-nl (char-after)))
+    (forward-char))
   (setq num-end-point (point))
   ;; Ensure we actually found a number
+  (message num-start-point)
+  (message num-end-point)
   (if (= num-start-point num-end-point)
       'nil
     (cons num-start-point num-end-point)))
