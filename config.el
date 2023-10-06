@@ -96,9 +96,9 @@
 (defun is-digit (c)
   (and (>= c 48) (<= c 57)))
 
-(defun get-num-lit ()
+(defun find-num-lit ()
   ; find the start of the number
-  (if (is-digit (following-char))  ; we are in a number already 312322 fdfsd
+  (if (is-digit (following-char))  ; we are in a number already fdfsd
       (progn
         (while (is-digit (following-char)) (backward-char))
         (forward-char))
@@ -107,7 +107,13 @@
   ; find the end of the number
   (while (is-digit (following-char)) (forward-char))
   (setq num-end-point (point))
-  (string-to-number (buffer-substring num-start-point num-end-point)))
+  (cons num-start-point num-end-point))
+
+(defun get-num-lit (pts)
+  (string-to-number (buffer-substring (car pts) (cdr pts))))
+
+(defun inc-num-lit ()
+
 
 (defun test ()
 ;;; Package config
