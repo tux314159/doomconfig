@@ -91,6 +91,10 @@
       "M-<tab>" 'tab-previous)
 (map! :map 'evil-normal-state-map
       "C-t" 'tab-new)
+; mm sweet c-a c-x
+(defun inc-next-num ()
+  (re-search-forward "[0-9]")
+  (point))
 
 ;;; Package config
 ;; vterm
