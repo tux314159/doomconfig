@@ -20,7 +20,9 @@
   (while (is-digit (char-after)) (forward-char))
   (setq num-end-point (point))
   ;; Ensure we actually have a valid number
-  (if (and (is-digit (char-after num-start-point)) (is-digit (char-after num-end-point)))
+  (if (and
+       (is-digit (char-after num-start-point))
+       (is-digit (char-after (- num-end-point 1))))
       (cons num-start-point num-end-point)
     'nil))
 
