@@ -99,14 +99,14 @@
 (defun inc-next-num ()
   ; find the start of the next number
   (if (is-digit (following-char))  ; we are in a number already
-      (while (is-digit following-char) (forward-char -1))
-    (while (not (is-digit following-char) (forward-char 1))))
+      (while (is-digit following-char) (backward-char))
+    (while (not (is-digit following-char)) (forward-char)))
   (re-search-forward "[0-9]")
   (point))
 
 (if (is-digit (following-char))  ; we are in a number already
-(while (is-digit following-char) (forward-char -1))
-(while (not (is-digit following-char) (forward-char 1))))
+    (while (is-digit following-char) (backward-char))
+  (while (not (is-digit following-char)) (forward-char)))
 ;;; Package config
 ;; vterm
 (setq! vterm-timer-delay 0.001)
