@@ -25,9 +25,7 @@
     'nil))
 
 (defun get-num-lit (pts)
-  (if pts
-      (string-to-number (buffer-substring (car pts) (cdr pts)))
-    0))  ; deal with it yourself smh
+  (string-to-number (buffer-substring (car pts) (cdr pts)))
 
 (defun inc-num-lit ()
   (setq! pts (find-num-lit))
