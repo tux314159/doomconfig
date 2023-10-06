@@ -95,7 +95,6 @@
 (map! :map 'evil-normal-state-map
       "C-a" (lambda () (interactive) (inc-num-lit)))
 
-; 2226
 ;;; Package config
 ;; vterm
 (setq! vterm-timer-delay 0.001)
