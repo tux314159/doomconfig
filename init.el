@@ -193,3 +193,10 @@
        :config
        ;;literate
        (default +bindings +smartparens))
+
+;; Hooks
+(defun doom-config-push-hook ()
+  (if (not (string-match-p (regexp-quote  "/home/isaac/.config/doom/") buffer-file-name))
+      (shell-command "cd ~/.config/doom/; git add .; git commit -m 'auto'; git push")))
+
+(add-hook 'after-save-hook 'doom-config-push-hook)
