@@ -103,7 +103,8 @@
         (while (is-digit (following-char)) (backward-char))
         (forward-char))
     (while (not (is-digit (following-char))) (forward-char)))
-  (re-search-forward "[0-9]")
+  ; find the end of the number
+  (while (is-digit (following-char)) (forward-char))
   (point))
 
 (defun test ()
