@@ -42,4 +42,5 @@
         ;; Delete old number and insert new one
         (delete-region (car pts) (cdr pts))
         (goto-char (car pts))
-        (insert new-num))))
+        (insert new-num)
+        (backward-char))))  ; we want cursor to be on the number
