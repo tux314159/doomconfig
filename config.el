@@ -104,6 +104,9 @@
   (re-search-forward "[0-9]")
   (point))
 
+(if (is-digit (following-char))  ; we are in a number already
+(while (is-digit following-char) (forward-char -1))
+(while (not (is-digit following-char) (forward-char 1))))
 ;;; Package config
 ;; vterm
 (setq! vterm-timer-delay 0.001)
