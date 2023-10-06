@@ -112,8 +112,6 @@
 (defun get-num-lit (pts)
   (string-to-number (buffer-substring (car pts) (cdr pts))))
 
-; hi 100 hello
-
 (defun inc-num-lit ()
   (let* ((pts (find-num-lit))
          (len (- (cdr pts) (car pts)))
