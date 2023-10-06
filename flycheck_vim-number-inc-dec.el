@@ -23,8 +23,8 @@
     (forward-char))
   (setq num-end-point (point))
   ;; Ensure we actually found a number
-  (message num-start-point)
-  (message num-end-point)
+  (message (number-to-string num-start-point))
+  (message (number-to-string num-end-point))
   (if (= num-start-point num-end-point)
       'nil
     (cons num-start-point num-end-point)))
