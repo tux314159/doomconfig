@@ -85,6 +85,7 @@
 
 ;;; Keymappings
 (map! :map 'evil-normal-state-local-map "s" 'evil-substitute)
+(map! :map 'evil-normal-state-local-map "C-a" 'evil-substitute)
 
 ;;; Package config
 ;; vterm
