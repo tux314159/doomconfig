@@ -22,7 +22,7 @@
   ;; Ensure we actually have a valid number
   (if (and (is-digit (char-after num-start-point)) (is-digit (char-after num-end-point)))
       (cons num-start-point num-end-point)
-    (cons 'nil nil)))
+    'nil))
 
 (defun get-num-lit (pts)
   (string-to-number (buffer-substring (car pts) (cdr pts))))
