@@ -12,8 +12,8 @@
       ;; We are in a number already
       (progn
         (while (and (not-nl (char-after)) (is-digit (char-after))
-                    (backward-char))
-          (forward-char)))  ; else we end up one before
+                    (backward-char)))
+          (forward-char))  ; else we end up one before
     ;; Search for a number
     (while (and (not-nl (char-after)) (not (is-digit (char-after))))
       (forward-char)))
