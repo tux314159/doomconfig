@@ -97,8 +97,10 @@
   (and (>= c ?0) (<= c ?9)))
 
 (defun inc-next-num ()
+  ; find the start of the next number
   (if (is-digit (following-char))  ; we are in a number already
-      (while (is-digit following-char) (forward-char -1)))  ; find the end
+      (while (is-digit following-char) (forward-char -1))
+    (while (not (is-digit following-char) (forward-char 1))))
   (re-search-forward "[0-9]")
   (point))
 
