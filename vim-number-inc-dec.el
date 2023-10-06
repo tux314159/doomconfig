@@ -25,18 +25,21 @@
     'nil))
 
 (defun get-num-lit (pts)
-  (string-to-number (buffer-substring (car pts) (cdr pts))))
+  (if pts
+      (string-to-number (buffer-substring (car pts) (cdr pts)))
+    0))  ; deal with it yourself smh
 
 (defun inc-num-lit ()
-  (let* ((pts (find-num-lit))
-         (len (- (cdr pts) (car pts)))
-         (new-num (number-to-string (+ 1 (get-num-lit pts)))))
-    (setq new-num                       ; add 0-padding if needed
-          (concat
-           (make-string (max 0 (- len (length new-num))) ?0)
-           new-num))
-    ;; Delete old number and insert new one
-    (delete-region (car pts) (cdr pts))
-    (goto-char (car pts))
-    (insert new-num)
-    (backward-char)))                   ; we want cursor to be on the number
+  (setq! pts (find-num-lit))
+  (if pts
+      (let ((len (- (cdr pts) (car pts)))
+            (new-num (number-to-string (+ 1 (get-num-lit pts)))))
+        (setq! new-num                       ; add 0-padding if needed
+               (concat
+                (make-string (max 0 (- len (length new-num))) ?0)
+                new-num))
+        ;; Delete old number and insert new one
+        (delete-region (car pts) (cdr pts))
+        (goto-char (car pts))
+        (insert new-num)
+        (backward-char))))                  ; we want cursor to be on the number
