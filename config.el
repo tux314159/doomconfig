@@ -114,8 +114,8 @@
 
 (defun inc-num-lit ()
   (let* ((pts (find-num-lit))
-         (len (- (cadr pts) (car pts))))
-    (+ 1 (get-num-lit pts))
+         (len (- (cadr pts) (car pts)))
+         (new-num (+ 1 (get-num-lit pts))))))
 
 ;;; Package config
 ;; vterm
