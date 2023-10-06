@@ -8,11 +8,13 @@
 
 (defun find-num-lit ()
   ;; Find the start of the number
-  (if (is-digit (char-after))                   ; we are in a number already
+  (if (is-digit (char-after))
+      ;; We are in a number already
       (progn
         (while (and (not-nl (char-after)) (is-digit (char-after))
                     (backward-char))
-          (forward-char))                       ; else we end up one before
+          (forward-char))  ; else we end up one before
+        ;; Search for a number
         (while (and (not-nl (char-after)) (not (is-digit (char-after))))
           (forward-char))))
   (setq num-start-point (point))
@@ -32,7 +34,7 @@
   (if pts
       (let ((len (- (cdr pts) (car pts)))
             (new-num (number-to-string (+ 1 (get-num-lit pts)))))
-        (setq! new-num                       ; add 0-padding if needed
+        (setq! new-num  ; add 0-padding if needed
                (concat
                 (make-string (max 0 (- len (length new-num))) ?0)
                 new-num))
@@ -40,4 +42,4 @@
         (delete-region (car pts) (cdr pts))
         (goto-char (car pts))
         (insert new-num)
-        (backward-char))))                  ; we want cursor to be on the number
+        (backward-char))))  ; we want cursor to be on the number
