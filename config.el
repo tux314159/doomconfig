@@ -76,7 +76,6 @@
 ;; they are implemented.
 
 ;;; Hooks
-;;;
 ;; Config syncing
 (add-hook! 'after-save-hook
   (if (string-match-p (regexp-quote "/home/isaac/.config/doom/") buffer-file-name)
