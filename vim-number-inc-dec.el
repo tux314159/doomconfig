@@ -5,7 +5,7 @@
   (and (>= c 48) (<= c 57)))
 
 (defun find-num-lit ()
-                                        ; find the start of the number
+  ;; find the start of the number
   (if (is-digit (following-char))       ; we are in a number already
       (progn
         (while (is-digit (following-char))
@@ -14,7 +14,7 @@
     (while (not (is-digit (following-char)))
       (forward-char)))
   (setq num-start-point (point))
-                                        ; find the end of the number
+  ;; find the end of the number
   (while (is-digit (following-char)) (forward-char))
   (setq num-end-point (point))
   (cons num-start-point num-end-point))
@@ -30,7 +30,7 @@
           (concat
            (make-string (max 0 (- len (length new-num))) ?0)
            new-num))
-                                        ; delete old number and insert new one
+    ;; delete old number and insert new one
     (delete-region (car pts) (cdr pts))
     (goto-char (car pts))
     (insert new-num)
