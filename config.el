@@ -86,7 +86,7 @@
 ;;; Keymappings
 (remove-hook 'doom-first-input-hook 'evil-snipe-mode)
 (map! :map 'evil-normal-state-map
-      "C-\t" evil-tab-next)
+      "C-<tab>" 'evil-tab-next)
 
 ;;; Package config
 ;; vterm
