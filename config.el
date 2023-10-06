@@ -101,7 +101,7 @@
   (if (is-digit (following-char))  ; we are in a number already fdfsd 43243 f
       (progn
         (while (is-digit (following-char)) (backward-char))
-        (forward-char))
+        (forward-char))  ; else we end up one before
     (while (not (is-digit (following-char))) (forward-char)))
   (setq num-start-point (point))
   ; find the end of the number
@@ -112,16 +112,21 @@
 (defun get-num-lit (pts)
   (string-to-number (buffer-substring (car pts) (cdr pts))))
 
+; hi 100 hello
+
 (defun inc-num-lit ()
   (let* ((pts (find-num-lit))
          (len (- (cdr pts) (car pts)))
          (new-num (number-to-string (+ 1 (get-num-lit pts)))))
     (setq new-num  ; add 0-padding if needed
-          (concat (make-string (max 0 (- len new-num)) ?0) new-num))
+          (concat
+           (make-string (max 0 (- len (length new-num))) ?0)
+           new-num))
     ; delete old number and insert new one
     (delete-region (car pts) (cdr pts))
     (goto-char (car pts))
-    (insert new-num)))
+    (insert new-num)
+    (backward-char)))  ; we want cursor to be on the number
 
 ;;; Package config
 ;; vterm
