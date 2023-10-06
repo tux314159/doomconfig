@@ -93,7 +93,7 @@
 (map! :map 'evil-normal-state-map
       "C-t" #'tab-new)
 (map! :map 'evil-normal-state-map
-      "C-a" (lambda () (interactive) inc-num-lit))
+      "C-a" (lambda () (interactive) (inc-num-lit)))
 
 ;;; Package config
 ;; vterm
