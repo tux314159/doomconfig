@@ -2,7 +2,7 @@
 ;;; Mm sweet c-a c-x
 
 (defun is-digit (c)
-  (and (>= c 48) (<= c 57)))
+  (and (>= c ?0) (<= c ?9)))
 (defun not-nl (c)
   (/= c ?\n))
 
