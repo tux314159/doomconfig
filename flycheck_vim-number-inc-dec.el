@@ -13,8 +13,8 @@
         (while (and (not-nl (char-after)) (is-digit (char-after))
           (backward-char))
         (forward-char))                 ; else we end up one before
-    (while (and (not-nl (char-after) (not (is-digit (char-after)))
-      (forward-char)))
+    (while (and (not-nl (char-after)) (not (is-digit (char-after))))
+      (forward-char))))
   (setq num-start-point (point))
   ;; Find the end of the number
   (while (is-digit (char-after)) (forward-char))
