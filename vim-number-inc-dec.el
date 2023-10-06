@@ -8,23 +8,21 @@
 
 (defun find-num-lit ()
   ;; Find the start of the number
-  (if (is-digit (char-after))       ; we are in a number already
+  (if (is-digit (char-after))                   ; we are in a number already
       (progn
         (while (and (not-nl (char-after)) (is-digit (char-after))
-          (backward-char))
-        (forward-char))                 ; else we end up one before
-    (while (and (not-nl (char-after)) (not (is-digit (char-after))))
-      (forward-char))))
+                    (backward-char))
+          (forward-char))                       ; else we end up one before
+        (while (and (not-nl (char-after)) (not (is-digit (char-after))))
+          (forward-char))))
   (setq num-start-point (point))
   ;; Find the end of the number
-  (while (is-digit (char-after)) (forward-char))
+  (while (and (is-digit (char-after)) (not-nl (char-after))) (forward-char))
   (setq num-end-point (point))
-  ;; Ensure we actually have a valid number
-  (if (and
-       (is-digit (char-after num-start-point))
-       (is-digit (char-after (- num-end-point 1))))
-      (cons num-start-point num-end-point)
-    'nil))
+  ;; Ensure we actually found a number
+  (if (= num-start-point num-end-point)
+      'nil
+    (cons num-start-point num-end-point)))
 
 (defun get-num-lit (pts)
   (string-to-number (buffer-substring (car pts) (cdr pts))))
