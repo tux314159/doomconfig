@@ -82,5 +82,3 @@
 (add-hook! 'after-save-hook
   (if (string-match-p (regexp-quote "/home/isaac/.config/doom/") buffer-file-name)
       (shell-command "cd ~/.config/doom/; git add .; git commit -m 'auto'; git push")))
-
-;TESTf
