@@ -94,9 +94,7 @@
 
 ; Mm sweet c-a c-x
 (defun is-digit (c)
-  (and (>= c 0x30) (<= c 0x39)))
-
-(is-digit ?3)
+  (and (>= c 48) (<= c 57)))
 
 (defun inc-next-num ()
   ; find the start of the next number
@@ -105,9 +103,10 @@
     (while (not (is-digit following-char)) (forward-char)))
   (re-search-forward "[0-9]")
   (point))
-(if (is-digit (following-char))  ; we are in a number already
-    (while (is-digit following-char) (backward-char))
-  (while (not (is-digit following-char)) (forward-char)))
+
+(if (is-digit (following-char))  ; we are in a number already 2
+    (while (is-digit (following-char)) (backward-char))
+  (while (not (is-digit (following-char))) (forward-char)))
 ;;; Package config
 ;; vterm
 (setq! vterm-timer-delay 0.001)
