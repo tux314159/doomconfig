@@ -83,6 +83,9 @@
   (if (string-match-p (regexp-quote "/home/isaac/.config/doom/") buffer-file-name)
       (shell-command "cd ~/.config/doom/; git add .; git commit -m 'auto'; git push")))
 
+;;; Keymappings
+(map! :map 'evil-normal-state-map "s" 'evil-substitute)
+
 ;;; Package config
 ;; vterm
 (setq! vterm-timer-delay 0.001)
