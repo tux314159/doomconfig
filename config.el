@@ -97,16 +97,16 @@
   (and (>= c 48) (<= c 57)))
 
 (defun inc-next-num ()
-  ; find the start of the next number
-  (if (is-digit (following-char))  ; we are in a number already
-      (while (is-digit following-char) (backward-char))
-    (while (not (is-digit following-char)) (forward-char)))
+  ; find the start of the number
+  (if (is-digit (following-char))  ; we are in a number already 312322
+      (progn
+        (while (is-digit (following-char)) (backward-char))
+        (forward-char))
+    (while (not (is-digit (following-char))) (forward-char)))
   (re-search-forward "[0-9]")
   (point))
 
-(if (is-digit (following-char))  ; we are in a number already 2
-    (while (is-digit (following-char)) (backward-char))
-  (while (not (is-digit (following-char))) (forward-char)))
+(defun test ()
 ;;; Package config
 ;; vterm
 (setq! vterm-timer-delay 0.001)
