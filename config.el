@@ -108,7 +108,7 @@
   (while (is-digit (following-char)) (forward-char))
   (backward-char)
   (setq num-end-point (point))
-  (cons num-start-point num-end-point))
+  (buffer-substring num-start-point num-end-point))
 
 (defun test ()
 ;;; Package config
