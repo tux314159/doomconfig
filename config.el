@@ -86,7 +86,9 @@
 ;;; Keymappings
 (remove-hook 'doom-first-input-hook 'evil-snipe-mode)
 (map! :map 'evil-normal-state-map
-      "C-<tab>" 'evil-tab-next)
+      "C-<tab>" 'tab-next)
+(map! :map 'evil-normal-state-map
+      "M-<tab>" 'tab-previous)
 (map! :map 'evil-normal-state-map
       "C-t" 'tab-new)
 
