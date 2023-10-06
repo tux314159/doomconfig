@@ -115,7 +115,10 @@
 (defun inc-num-lit ()
   (let* ((pts (find-num-lit))
          (len (- (cadr pts) (car pts)))
-         (new-num (+ 1 (get-num-lit pts))))))
+         (new-num (number-to-string (+ 1 (get-num-lit pts)))))
+    (if (length new-num < len)  ; need 0-padding
+        (setq new-num (concat (make-string (- len new-num) ?0) new-num))
+    ))
 
 ;;; Package config
 ;; vterm
