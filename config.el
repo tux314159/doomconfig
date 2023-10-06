@@ -84,8 +84,8 @@
       (shell-command "cd ~/.config/doom/; git add .; git commit -m 'auto'; git push")))
 
 ;;; Keymappings
-(remove-hook 'doom-first-input-hook #'evil-snipe-mode)
-(define-key evil-normal-state-map (kbd "") 'evil-substitute)
+(remove-hook 'doom-first-input-hook 'evil-snipe-mode)
+(define-key evil-normal-state-map (kbd "C-\t") 'evil-substitute)
 
 ;;; Package config
 ;; vterm
