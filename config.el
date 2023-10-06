@@ -84,7 +84,9 @@
       (shell-command "cd ~/.config/doom/; git add .; git commit -m 'auto'; git push")))
 
 ;;; Keymappings
-(map! :map 'evil-normal-state-map "s" 'evil-substitute)
+(map! :after evil
+      :map 'evil-normal-state-map
+      "s" 'evil-substitute)
 
 ;;; Package config
 ;; vterm
