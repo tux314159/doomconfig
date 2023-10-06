@@ -92,7 +92,12 @@
 (map! :map 'evil-normal-state-map
       "C-t" 'tab-new)
 ; mm sweet c-a c-x
+(defun is-digit (c)
+  (and (>= c ?0) (<= c 9)))
+
 (defun inc-next-num ()
+  (let ((c (following-char)))
+    (if (and (c < 0 and
   (re-search-forward "[0-9]")
   (point))
 
