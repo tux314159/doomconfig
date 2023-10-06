@@ -85,6 +85,7 @@
 
 ;;; Keymappings
 (define-key evil-normal-state-map (kbd "s") 'evil-substitute)
+(define-key evil-normal-state-map (kbd "s") 'evil-substitute)
 
 ;;; Package config
 ;; vterm
