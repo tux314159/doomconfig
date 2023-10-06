@@ -96,16 +96,19 @@
 (defun is-digit (c)
   (and (>= c 48) (<= c 57)))
 
-(defun inc-next-num ()
+(defun find-num-lit ()
   ; find the start of the number
-  (if (is-digit (following-char))  ; we are in a number already 312322
+  (if (is-digit (following-char))  ; we are in a number already 312322 fdfsd
       (progn
         (while (is-digit (following-char)) (backward-char))
         (forward-char))
     (while (not (is-digit (following-char))) (forward-char)))
+  (setq num-start-point (point))
   ; find the end of the number
   (while (is-digit (following-char)) (forward-char))
-  (point))
+  (backward-char)
+  (setq num-end-point (point))
+  (cons num-start-point num-end-point))
 
 (defun test ()
 ;;; Package config
