@@ -114,11 +114,9 @@
 
 (defun inc-num-lit ()
   (let* ((pts (find-num-lit))
-        (len (- (cadr pts) (car pts))))
+         (len (- (cadr pts) (car pts))))
     (+ 1 (get-num-lit pts))
 
-
-(defun test ()
 ;;; Package config
 ;; vterm
 (setq! vterm-timer-delay 0.001)
