@@ -4,7 +4,7 @@
 (defun is-digit (c)
   (and (>= c 48) (<= c 57)))
 (defun not-nl (c)
-  (not (= c ?\n)))
+  (/= c ?\n))
 
 (defun find-num-lit ()
   ;; Find the start of the number
