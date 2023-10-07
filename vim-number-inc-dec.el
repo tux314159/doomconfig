@@ -10,9 +10,7 @@
   ;; Find the start of the number
   (if (is-digit (char-after))
       ;; We are in a number already
-      (progn
-        (skip-chars-backward "0-9")
-        (forward-char))  ; else we end up one before
+      (skip-chars-backward "0-9")
     ;; Search for a number
     (while (and (not-nl (char-after)) (not (is-digit (char-after))))
       (forward-char)))
