@@ -64,6 +64,10 @@
 (defun num-lit-global-op (n)
   n)  ; do nothing by default
 
+(defun parse-infix-expr (str)
+  ()(string-to-list)
+  )
+
 (defun num-lit-global-op-set (op)
   (interactive "MSet arith operation: ")
   (fset #'num-lit-global-op (car (read-from-string op))))
