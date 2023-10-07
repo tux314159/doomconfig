@@ -64,8 +64,8 @@
 (defun num-lit-global-op (n)
   n)                                    ; do nothing by default
 
-(defun pop-read (stack)
-    (read-from-string (pop stack)))
+(defmacro pop-read (stack)
+  `(car (read-from-string (make-string 1 (pop ,stack)))))
 
 (defun parse-infix-expr (str)
   "Parse an infix math expression into a function."
@@ -79,22 +79,24 @@
         (if (is-digit c)
             (push c buf)                ; read the whole number in first
           (progn
-            (push (string-to-number (concat (reverse buf))) out) ; push number
+            (when buf
+              (push (string-to-number (concat (reverse buf))) out) ; push number
+              (setq buf '()))
             (cond
-             ((is-digit c)
-              (push c out))
-             ((member c operators)
+             ((member c operators)      ; operators
               (while (and (member (car stack) operators)
                           (< (cl-position (car stack) operators) ; while there's an op of
                              (cl-position c operators))) ; greater precedence on the stack
                 (push (pop-read stack) out)) ; pop it and push it to output
               (push c stack))              ; then push the current op onto the stack
-             ((= c ?\()
+             ((= c ?\()                    ; left bracket
               (push c stack))
-             ((= c ?\))
+             ((= c ?\))                 ; right bracket
               (while (/= (car stack) ?\()
                 (push (pop-read stack) out))
               (pop stack)))))))
+    (if buf
+        (push (string-to-number (concat (reverse buf))) out)) ; push number if any
     (while (not (null stack))
       (push (pop-read stack) out))
     (reverse out)))
