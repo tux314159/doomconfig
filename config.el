@@ -95,7 +95,7 @@
 (map! :map 'evil-normal-state-map
       "C-a" (lambda () (interactive) (num-lit-do-op (lambda (n) (+ n 1)))))
 (map! :map 'evil-normal-state-map
-      "C-a" (lambda () (interactive) (num-lit-do-op (lambda (n) (- n 1)))))
+      "C-x" (lambda () (interactive) (num-lit-do-op (lambda (n) (- n 1)))))
 
 ;;; Package config
 ;; vterm
