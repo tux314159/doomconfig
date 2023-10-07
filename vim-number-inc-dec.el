@@ -71,7 +71,7 @@
         (out '()))
     (while (not (null in))
       (let ((c (pop in)))
-        (if (is-digit c)
+        (if (is-digit c))))))
 
 (defun num-lit-global-op-set (op)
   (interactive "MSet arith operation: ")
