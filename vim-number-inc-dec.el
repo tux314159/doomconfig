@@ -67,8 +67,16 @@
 (defmacro pop-read (stack)
   `(car (read-from-string (make-string 1 (pop ,stack)))))
 
+(defmacro pop-operator-and-push (stack out)
+  "Pop an operator from the operator stack push it as a new node."
+  `(let ((op (pop-read ,stack))
+         (rarg (pop ,out))
+         (larg (pop ,out)))
+     (push (list op larg rarg) ,out)))
+
 (defun parse-infix-expr (str)
   "Parse an infix math expression into a function."
+  ;; First we parse it into AST
   (let ((operators (list ?* ?/ ?+ ?- nil)) ; in order of precedence
         (in (string-to-list str))
         (stack '())
@@ -83,23 +91,26 @@
               (push (string-to-number (concat (reverse buf))) out) ; push number
               (setq buf '()))
             (cond
+             ((= c ?n)                  ; the argument
+              (push 'n stack))
              ((member c operators)      ; operators
               (while (and (member (car stack) operators)
                           (< (cl-position (car stack) operators) ; while there's an op of
                              (cl-position c operators))) ; greater precedence on the stack
-                (push (pop-read stack) out)) ; pop it and push it to output
+                (pop-operator-and-push stack out)) ; pop it and push it to output
               (push c stack))              ; then push the current op onto the stack
              ((= c ?\()                    ; left bracket
               (push c stack))
              ((= c ?\))                 ; right bracket
               (while (/= (car stack) ?\()
-                (push (pop-read stack) out))
+                (pop-operator-and-push stack out))
               (pop stack)))))))
     (if buf
         (push (string-to-number (concat (reverse buf))) out)) ; push number if any
     (while (not (null stack))
-      (push (pop-read stack) out))
-    (reverse out)))
+      (pop-operator-and-push stack out))
+    ;; Now we parse it into a function
+    (car out)))
 
 (defun num-lit-global-op-set (op)
   (interactive "MSet arith operation: ")
