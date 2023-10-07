@@ -62,7 +62,7 @@
         (backward-char)))) ; we want cursor to be on the number
 
 (defun num-lit-global-op (n)
-  n)
+  n)  ; do nothing by default
 
 (defun num-lit-global-op-set (op)
   (interactive "M")
