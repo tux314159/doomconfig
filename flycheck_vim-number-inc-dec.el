@@ -3,7 +3,7 @@
 
 ;;; Char tests
 (defun is-digit (c)
-  (and (>= c ?0) (<= c ?9)))
+  (or (and (>= c ?0) (<= c ?9)) (= c ?-))) ; include '-'
 (defun not-nl (c)
   (/= c ?\n))
 
