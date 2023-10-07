@@ -20,7 +20,7 @@
 (defun find-next-num-lit-start ()
   (while (and (not-nl (char-after)) (not (is-digit (char-after)))) ; find a number
       (forward-char))
-  (skip-num-backward))  ; don't skip the minus-sign
+  (skip-num-backward))                  ; don't skip the minus-sign
 
 ;;; Find the start/end of the current/next number on this line
 (defun find-num-lit ()
@@ -28,7 +28,7 @@
         (num-end-point 0))
     ;; Find the start of the number
     (if (is-digit (char-after))
-        (skip-num-backward) ; we are in the number already
+        (skip-num-backward)             ; we are in the number already
       (find-next-num-lit-start))
     (setq num-start-point (point))
     ;; Find the end of the number
@@ -51,7 +51,7 @@
              (new-num (number-to-string (funcall op (string-to-number old-num-str)))))
         (if (= (aref old-num-str 0) ?-)
             (setq len (- len 1))) ; if there's a - don't include it in length calculations
-        (setq new-num ; add 0-padding if needed
+        (setq new-num             ; add 0-padding if needed
               (concat
                (make-string (max 0 (- len (length new-num))) ?0)
                new-num))
@@ -59,19 +59,38 @@
         (delete-region (car pts) (cdr pts))
         (goto-char (car pts))
         (insert new-num)
-        (backward-char)))) ; we want cursor to be on the number
+        (backward-char))))              ; we want cursor to be on the number
 
 (defun num-lit-global-op (n)
-  n)  ; do nothing by default
+  n)                                    ; do nothing by default
 
 (defun parse-infix-expr (str)
-  (let ((operators "*/+-") ; in order of precedence
+  (let ((operators (list ?* ?/ ?+ ?- nil))      ; in order of precedence
         (in (string-to-list str))
         (stack '())
         (out '()))
     (while (not (null in))
       (let ((c (pop in)))
-        (if (is-digit c))))))
+        (cond
+         ((is-digit c)
+          (push c out))
+         ((member c operators)
+          (while (< (cl-position (car stack) operators) ; while there's an op of
+                    (cl-position c operators)) ; greater precedence on the stack
+            (push (pop stack) out))            ; pop it and push it to output
+          (push c stack))              ; then push the current op onto the stack
+         ((= c ?\()
+          (push c stack))
+         ((= c ?\))
+          (while (/= (car stack) ?\()
+            (push (pop stack) out))
+          (pop stack)))))
+    (while (not (null stack))
+      (push (pop stack) out)))
+  (reverse l))
+
+
+
 
 (defun num-lit-global-op-set (op)
   (interactive "MSet arith operation: ")
