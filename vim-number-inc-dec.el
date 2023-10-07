@@ -19,7 +19,7 @@
 ;;; Find the start of the next number
 (defun find-next-num-lit-start ()
   (while (and (not-nl (char-after)) (not (is-digit (char-after)))) ; find a number
-      (forward-char))
+    (forward-char))
   (skip-num-backward))                  ; don't skip the minus-sign
 
 ;;; Find the start/end of the current/next number on this line
