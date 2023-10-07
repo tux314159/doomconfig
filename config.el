@@ -92,11 +92,10 @@
       "M-<tab>" #'tab-previous)
 (map! :map 'evil-normal-state-map
       "C-t" #'tab-new)
-(require 'cl-lib)
 (map! :map 'evil-normal-state-map
-      "C-a" (lambda () (interactive) (num-lit-do-op #'cl-incf)))
+      "C-a" (lambda () (interactive) (num-lit-do-op (lambda (n) (+ n 1)))))
 (map! :map 'evil-normal-state-map
-      "C-a" (lambda () (interactive) (num-lit-do-op #'cl-decf)))
+      "C-a" (lambda () (interactive) (num-lit-do-op (lambda (n) (- n 1)))))
 
 ;;; Package config
 ;; vterm
