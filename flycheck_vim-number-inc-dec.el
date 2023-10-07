@@ -46,7 +46,7 @@
   (if pts
       (let* ((len (- (cdr pts) (car pts)))
              (old-num-str (buffer-substring (car pts) (cdr pts)))
-             (new-num (number-to-string (apply op (string-to-number old-num-str)))))
+             (new-num (number-to-string (apply #'op (string-to-number old-num-str)))))
         (if (= (aref old-num-str 0) ?-)
             (setq len (- len 1))) ; if there's a - don't include it in length calculations
         (setq new-num ; add 0-padding if needed
