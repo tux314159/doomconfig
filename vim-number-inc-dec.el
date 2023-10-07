@@ -45,7 +45,7 @@
   (if pts
       (let ((len (- (cdr pts) (car pts)))
             (new-num (number-to-string (+ 1 (get-num-lit pts)))))
-        (if (= (substring new-num 0 1) ?-)
+        (if (= (aref new-num 0) ?-)
             (setq len (- len 1))) ; if there's a - don't include it in length calculations
         (setq new-num ; add 0-padding if needed
               (concat
