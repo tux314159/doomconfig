@@ -65,5 +65,5 @@
   n)  ; do nothing by default
 
 (defun num-lit-global-op-set (op)
-  (interactive "M")
+  (interactive "MSet arith operation: ")
   (fset #'num-lit-global-op (car (read-from-string op))))
