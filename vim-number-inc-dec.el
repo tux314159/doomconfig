@@ -16,8 +16,7 @@
       (forward-char)))
   (setq num-start-point (point))
   ;; Find the end of the number
-  (while (and (is-digit (char-after)) (not-nl (char-after)))
-    (forward-char))
+  (skip-chars-forward "0-9")
   (setq num-end-point (point))
   ;; Ensure we actually found a number
   (if (= num-start-point num-end-point)
