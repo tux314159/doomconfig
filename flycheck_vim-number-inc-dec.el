@@ -64,6 +64,9 @@
 (defun num-lit-global-op (n)
   n)                                    ; do nothing by default
 
+(defun pop-read (stack)
+    (read-from-string (pop stack)))
+
 (defun parse-infix-expr (str)
   "Parse an infix math expression into a function."
   (let ((operators (list ?* ?/ ?+ ?- nil)) ; in order of precedence
@@ -79,16 +82,16 @@
           (while (and (member (car stack) operators)
                       (< (cl-position (car stack) operators) ; while there's an op of
                          (cl-position c operators))) ; greater precedence on the stack
-            (push (pop stack) out))    ; pop it and push it to output
+            (push (pop-read stack) out)) ; pop it and push it to output
           (push c stack))              ; then push the current op onto the stack
          ((= c ?\()
           (push c stack))
          ((= c ?\))
           (while (/= (car stack) ?\()
-            (push (pop stack) out))
+            (push (pop-read stack) out))
           (pop stack)))))
     (while (not (null stack))
-      (push (pop stack) out))
+      (push (pop-read stack) out))
     (reverse out)))
 
 (defun num-lit-global-op-set (op)
