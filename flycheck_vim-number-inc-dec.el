@@ -9,12 +9,12 @@
 (defun find-num-lit ()
   ;; Find the start of the number
   (if (is-digit (char-after))
-      (skip-chars-backward "0-9") ; we are in the number already
+      (skip-chars-backward "\-0-9") ; we are in the number already
     (while (and (not-nl (char-after)) (not (is-digit (char-after)))) ; find a number
       (forward-char)))
   (setq num-start-point (point))
   ;; Find the end of the number
-  (skip-chars-forward "0-9")
+  (skip-chars-forward "\-0-9")
   (setq num-end-point (point))
   ;; Ensure we actually found a number
   (if (= num-start-point num-end-point)
