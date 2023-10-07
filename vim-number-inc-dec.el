@@ -65,9 +65,17 @@
   n)  ; do nothing by default
 
 (defun parse-infix-expr (str)
-  ()(string-to-list)
-  )
+  (let ((operators "*/+-") ; in order of precedence
+        (in (string-to-list str))
+        (stack '())
+        (out '()))
+    (while (not (null in))
+      (let ((c (pop in)))
+        (if (is-digit c)
 
 (defun num-lit-global-op-set (op)
   (interactive "MSet arith operation: ")
   (fset #'num-lit-global-op (car (read-from-string op))))
+Welcome to the Emacs shell
+
+~/.config/doom $ 
