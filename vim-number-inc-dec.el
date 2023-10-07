@@ -61,3 +61,7 @@
 
 (defun num-lit-global-op (n)
   n)
+
+(defun num-lit-global-op-set (op)
+  (interactive "M")
+  (setq num-lit-global-op (eval op)))
