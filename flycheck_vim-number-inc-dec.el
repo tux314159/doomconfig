@@ -72,24 +72,29 @@
   (let ((operators (list ?* ?/ ?+ ?- nil)) ; in order of precedence
         (in (string-to-list str))
         (stack '())
-        (out '()))
+        (out '())
+        (buf '()))
     (while (not (null in))
       (let ((c (pop in)))
-        (cond
-         ((is-digit c)
-          (push c out))
-         ((member c operators)
-          (while (and (member (car stack) operators)
-                      (< (cl-position (car stack) operators) ; while there's an op of
-                         (cl-position c operators))) ; greater precedence on the stack
-            (push (pop-read stack) out)) ; pop it and push it to output
-          (push c stack))              ; then push the current op onto the stack
-         ((= c ?\()
-          (push c stack))
-         ((= c ?\))
-          (while (/= (car stack) ?\()
-            (push (pop-read stack) out))
-          (pop stack)))))
+        (if (is-digit c)
+            (push c buf)                ; read the whole number in first
+          (progn
+            (push (string-to-number (concat (reverse buf))) out) ; push number
+            (cond
+             ((is-digit c)
+              (push c out))
+             ((member c operators)
+              (while (and (member (car stack) operators)
+                          (< (cl-position (car stack) operators) ; while there's an op of
+                             (cl-position c operators))) ; greater precedence on the stack
+                (push (pop-read stack) out)) ; pop it and push it to output
+              (push c stack))              ; then push the current op onto the stack
+             ((= c ?\()
+              (push c stack))
+             ((= c ?\))
+              (while (/= (car stack) ?\()
+                (push (pop-read stack) out))
+              (pop stack)))))))
     (while (not (null stack))
       (push (pop-read stack) out))
     (reverse out)))
