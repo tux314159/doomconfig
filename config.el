@@ -99,7 +99,7 @@
 (map! :map 'evil-normal-state-map
       "C-n" (lambda () (interactive) (num-lit-do-op #'num-lit-global-op)))
 (map! :map 'evil-normal-state-map
-      "M-n" (lambda () (interactive) (num-lit-global-op-set)))
+      "M-n" #'num-lit-global-op-set)
 
 ;;; Package config
 ;; vterm
