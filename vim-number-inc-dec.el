@@ -109,9 +109,8 @@
         (push (string-to-number (concat (reverse buf))) out)) ; push number if any
     (while (not (null stack))
       (pop-operator-and-push stack out))
-    ;; Now we parse it into a function
     (car out)))
 
-(defun num-lit-global-op-set (op)
+(defun num-lit-global-op-set (expr)
   (interactive "MSet arith operation: ")
-  (fset #'num-lit-global-op (car (read-from-string op))))
+  (fset #'num-lit-global-op (parse-infix-expr expr)))
