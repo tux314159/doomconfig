@@ -24,18 +24,20 @@
 
 ;;; Find the start/end of the current/next number on this line
 (defun find-num-lit ()
-  ;; Find the start of the number
-  (if (is-digit (char-after))
-      (skip-num-backward) ; we are in the number already
-    (find-next-num-lit-start))
-  (setq num-start-point (point))
-  ;; Find the end of the number
-  (skip-num-forward)
-  (setq num-end-point (point))
-  ;; Ensure we actually found a number
-  (if (= num-start-point num-end-point)
-      'nil
-    (cons num-start-point num-end-point)))
+  (let ((num-start-point 0)
+        (num-end-point 0))
+    ;; Find the start of the number
+    (if (is-digit (char-after))
+        (skip-num-backward) ; we are in the number already
+      (find-next-num-lit-start))
+    (setq num-start-point (point))
+    ;; Find the end of the number
+    (skip-num-forward)
+    (setq num-end-point (point))
+    ;; Ensure we actually found a number
+    (if (= num-start-point num-end-point)
+        'nil
+      (cons num-start-point num-end-point))))
 
 (defun get-num-lit (pts)
   (string-to-number (buffer-substring (car pts) (cdr pts))))
