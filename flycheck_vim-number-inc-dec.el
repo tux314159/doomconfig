@@ -65,12 +65,14 @@
   n)                                    ; do nothing by default
 
 (defun parse-infix-expr (str)
+  "Uses the shunting-yard algorithm to parse an infix math expression into a function."
   (let ((operators (list ?* ?/ ?+ ?- nil))      ; in order of precedence
         (in (string-to-list str))
         (stack '())
         (out '()))
     (while (not (null in))
       (let ((c (pop in)))
+        (message (number-to-string c))
         (cond
          ((is-digit c)
           (push c out))
