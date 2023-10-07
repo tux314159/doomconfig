@@ -64,4 +64,4 @@
 
 (defun num-lit-global-op-set (op)
   (interactive "M")
-  (setq num-lit-global-op (eval op)))
+  (setq num-lit-global-op (read-from-string op)))
