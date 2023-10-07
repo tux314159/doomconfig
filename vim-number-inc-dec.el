@@ -89,9 +89,6 @@
       (push (pop stack) out)))
   (reverse l))
 
-
-
-
 (defun num-lit-global-op-set (op)
   (interactive "MSet arith operation: ")
   (fset #'num-lit-global-op (car (read-from-string op))))
