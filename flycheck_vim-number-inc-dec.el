@@ -64,4 +64,4 @@
 
 (defun num-lit-global-op-set (op)
   (interactive "M")
-  (setf num-lit-global-op (car (read-from-string op))))
+  (fset #'num-lit-global-op (car (read-from-string op))))
