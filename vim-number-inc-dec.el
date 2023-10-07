@@ -10,7 +10,7 @@
 (defun skip-num-backward ()
   (skip-chars-backward "0-9")
   ;; If there's a minus-sign include it (only one!)
-  (if (= (char-after (- 1 (point))) ?-)
+  (if (= (char-after (- (point) 1)) ?-)
       (backward-char)))
 
 (defun skip-num-forward ()
