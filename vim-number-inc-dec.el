@@ -86,8 +86,8 @@
             (push (pop stack) out))
           (pop stack)))))
     (while (not (null stack))
-      (push (pop stack) out)))
-  (reverse out))
+      (push (pop stack) out))
+    (reverse out)))
 
 (defun num-lit-global-op-set (op)
   (interactive "MSet arith operation: ")
