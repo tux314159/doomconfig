@@ -1,10 +1,24 @@
 (defun is-digit (c)
   (and (>= c ?0) (<= c ?9)))
 
+(defun position-2d (elem list)
+  "Find position within 2d list. Terrible code. Only works for numbers!"
+  (let (i! j!)
+    (let ((i 0))
+      (dolist (l list i)
+        (let ((j 0))
+          (dolist (x l j)
+            (if (eq x elem) (setq j! j))
+            (setq j (+ 1 j))))
+        (if (and j! (not i!))
+            (setq i! i))
+        (setq i (+ i 1))))
+    (cons i! j!)))
+
 (defun parse-infix-expr (str)
   "Parse an infix math expression into a function."
   ;; First we parse it into AST
-  (let ((operators (list ?* ?/ ?+ ?- nil)) ; in order of precedence
+  (let ((operators '((?* ?/) (?+ ?-) (nil))) ; in order of precedence
         (in (string-to-list str))
         (stack '())
         (out '())
@@ -22,8 +36,10 @@
               (push 'n out))
              ((member c operators)      ; operators
               (while (and (member (car stack) operators)
-                          (<= (cl-position (car stack) operators) ; while there's an op of
-                             (cl-position c operators))) ; greater precedence on the stack
+                          (or (let ((p1 (position-2d (car stack) operators))
+                                    (p2 (position-2d c operators)))
+                           (< (car p1) (car p2)) ; while there's an operator of greater-
+                           (= (cdr p1) (cdr p2)  ; or-equal precedence on the stack,
                 (pop-operator-and-push stack out)) ; pop it and push it to output
               (push c stack))          ; then push the current op onto the stack
              ((= c ?\()                ; left bracket
