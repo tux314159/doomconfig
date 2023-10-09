@@ -22,7 +22,7 @@
               (push 'n out))
              ((member c operators)      ; operators
               (while (and (member (car stack) operators)
-                          (< (cl-position (car stack) operators) ; while there's an op of
+                          (<= (cl-position (car stack) operators) ; while there's an op of
                              (cl-position c operators))) ; greater precedence on the stack
                 (pop-operator-and-push stack out)) ; pop it and push it to output
               (push c stack))          ; then push the current op onto the stack
