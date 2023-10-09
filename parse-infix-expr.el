@@ -11,7 +11,7 @@
         (buf '()))
     (while (not (null in))
       (let ((c (pop in)))
-        (if (is-digit c)
+        (if (or (= c ?.) (is-digit c))
             (push c buf)                ; read the whole number in first
           (progn
             (when buf
