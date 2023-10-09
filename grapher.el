@@ -23,10 +23,12 @@
            (insert blankl)
            (insert (c2s ?\n))))
   (goto-char 0)
-  (forward-line (/ ysz 2))              ; go to middle vertically
-  (insert (make-string xsz ?-))         ; draw x-axis
+  ;; Draw x-axis
+  (forward-line (/ ysz               ; go to middle vertically
+  (insert (make-string xsz ?-))
   (goto-char 0)
-  (loopn i ysz                          ; draw y-axis
-         (forward-char (/ xsz 2))       ; go to middle horizontally
+  ;; Draw y-axis
+  (loopn i ysz
+         (forward-char (/ xsz 2))
          (insert (c2s ?|))
          (forward-line)))
