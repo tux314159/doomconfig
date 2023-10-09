@@ -36,8 +36,8 @@
           (* (succ grapher-x-size) (/ grapher-y-size 2))
           (+ (/ grapher-x-size 2) 2))))
     (+ zero
-       (- (* (succ grapher-x-size) y))
-       (* x grapher-x-scale))))
+       (- (* (succ grapher-x-size) (round y)))
+       (round x))))
 
 (defun grapher-draw-axes ()
   "Initialise the graph axes, should be called on a blank buffer."
@@ -80,3 +80,9 @@
 (defun grapher-plot-function (f)
   "Plots a function."
   (mapc #'grapher-plot-point (grapher-gen-interval f)))
+
+(defun grapher-interactive-plot (expr)
+  (interactive "MEnter function: ")
+  (erase-buffer)
+  (grapher-draw-axes)
+  (grapher-plot-function (parse-infix-expr expr)))
