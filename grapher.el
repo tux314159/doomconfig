@@ -5,7 +5,7 @@
 ;; Axes
 (setq grapher-x-size 127)
 (setq grapher-y-size 45)
-(setq grapher-x-scale 3)
+(setq grapher-x-scale 2)
 
 (defmacro loopn (ivar n &rest body)
   "Loop n times"
@@ -37,7 +37,7 @@
           (+ (/ grapher-x-size 2) 2))))
     (+ zero
        (- (* (succ grapher-x-size) (round y)))
-       (round x))))
+       (* (round x) grapher-x-scale))))
 
 (defun grapher-draw-axes ()
   "Initialise the graph axes, should be called on a blank buffer."
@@ -68,8 +68,8 @@
 (defun grapher-gen-interval (f)
   "Generate x and y coordinates over the whole x-range for a function."
   (let ((points '())
-        (x (- (/ grapher-x-size 2))))
-    (while (<= x (/ grapher-x-size 2))
+        (x (- (/ grapher-x-size grapher-x-scale 2))))
+    (while (<= x (/ grapher-x-size grapher-x-scale 2))
       (progn
         (let ((y (funcall f (/ x grapher-x-scale))))
           (when (<= (abs y) (/ grapher-y-size 2))
