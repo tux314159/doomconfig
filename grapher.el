@@ -35,7 +35,7 @@
           (* (succ grapher-x-size) (/ grapher-y-size 2))
           (+ (/ grapher-x-size 2) 2))))
     (+ zero
-       (* (succ grapher-x-size) y)
+       (- (* (succ grapher-x-size) y))
        x)))
 
 (defun grapher-draw-axes ()
