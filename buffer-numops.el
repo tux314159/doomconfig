@@ -1,6 +1,8 @@
 ;;; vim-number-inc-dec.el -*- lexical-binding: t; -*-
 ;;; Mm sweet c-a c-x
 
+(load "~/.config/doom/parse-infix-expr")
+
 ;;; Char tests
 (defun is-digit (c)
   (and (>= c ?0) (<= c ?9)))
