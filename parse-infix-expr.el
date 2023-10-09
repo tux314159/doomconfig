@@ -22,7 +22,7 @@
 (defun parse-infix-expr (str)
   "Parse an infix math expression into a function."
   ;; First we parse it into AST
-  (let ((operators '((?* ?/) (?+ ?-) (?^) (nil))) ; in order of precedence
+  (let ((operators '((?^) (?* ?/) (?+ ?-) (nil))) ; in order of precedence
         (in (string-to-list str))
         (stack '())
         (out '())
