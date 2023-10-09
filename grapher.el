@@ -37,7 +37,7 @@
           (+ (/ grapher-x-size 2) 2))))
     (+ zero
        (- (* (succ grapher-x-size) y))
-       x)))
+       (* x grapher-x-scale))))
 
 (defun grapher-draw-axes ()
   "Initialise the graph axes, should be called on a blank buffer."
