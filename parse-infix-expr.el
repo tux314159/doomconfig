@@ -55,5 +55,6 @@
     (while (not (null stack))
       (pop-operator-and-push stack out))
     ;; Generate the function :D
-    `(cl-flet ((^ #'expt))
-       (lambda (n) ,(car out)))))
+    `(lambda (n)
+       (cl-flet ((^ #'expt))
+         ,(car out)))))
