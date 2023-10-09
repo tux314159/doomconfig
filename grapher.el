@@ -5,6 +5,7 @@
 ;; Axes
 (setq grapher-x-size 127)
 (setq grapher-y-size 45)
+(setq grapher-x-scale 3)
 
 (defmacro loopn (ivar n &rest body)
   "Loop n times"
@@ -62,7 +63,7 @@
 (defun grapher-plot-point (pos)
   "Plot a single point."
   (goto-char (grapher-calc-pos (car pos) (cdr pos)))
-  (overwrite-char ?.))
+  (overwrite-char ?*))
 
 (defun grapher-gen-interval (f)
   "Generate x and y coordinates over the whole x-range for a function."
@@ -70,10 +71,10 @@
         (x (- (/ grapher-x-size 2))))
     (while (<= x (/ grapher-x-size 2))
       (progn
-        (let ((y (funcall f x)))
+        (let ((y (funcall f (/ x grapher-x-scale))))
           (when (<= (abs y) (/ grapher-y-size 2))
             (push (cons x y) points)))
-        (setq x (+ x 1))))
+        (setq x (+ x grapher-x-scale))))
     points))
 
 (defun grapher-plot-function (f)
