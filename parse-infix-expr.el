@@ -38,8 +38,7 @@
               (while (and (member (car stack) operators)
                           (let ((p1 (position-2d (car stack) operators))
                                 (p2 (position-2d c operators)))
-                            (or (< (car p1) (car p2)) ; while there's an operator of greater-
-                                (= (cdr p1) (cdr p2))))) ; or-equal precedence on the stack,
+                            (<= (car p1) (car p2)) ; while there's an operator of greater-
                 (pop-operator-and-push stack out)) ; pop it and push it to output
               (push c stack))          ; then push the current op onto the stack
              ((= c ?\()                ; left bracket
