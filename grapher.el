@@ -24,7 +24,7 @@
            (insert (c2s ?\n))))
   (goto-char 0)
   ;; Draw x-axis
-  (forward-line (/ ysz               ; go to middle vertically
+  (forward-line (/ ysz 2))              ; go to middle vertically
   (insert (make-string xsz ?-))
   (goto-char 0)
   ;; Draw y-axis
