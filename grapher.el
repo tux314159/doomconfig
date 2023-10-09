@@ -3,7 +3,7 @@
 (load "~/.config/doom/parse-infix-expr")
 
 ;; Axes
-(setq grapher-x-size 255)
+(setq grapher-x-size 127)
 (setq grapher-y-size 45)
 (setq grapher-x-scale 2)
 
