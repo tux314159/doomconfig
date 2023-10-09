@@ -15,6 +15,10 @@
         (setq i (+ i 1))))
     (cons i! j!)))
 
+(defun member-2d (elem list)
+  "Check if element is in 2d list. Only works for numbers!"
+  (not (eq (car (position-2d elem list)) nil)))
+
 (defun parse-infix-expr (str)
   "Parse an infix math expression into a function."
   ;; First we parse it into AST
@@ -35,7 +39,7 @@
              ((= c ?n)                  ; the argument
               (push 'n out))
              ((member c operators)      ; operators
-              (while (and (member (car stack) operators)
+              (while (and (member-2d (car stack) operators)
                           (let ((p1 (position-2d (car stack) operators))
                                 (p2 (position-2d c operators)))
                             (< (car p1) (car p2)))) ; while there's an operator of greater-
