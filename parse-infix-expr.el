@@ -1,3 +1,6 @@
+(defun is-digit (c)
+  (and (>= c ?0) (<= c ?9)))
+
 (defun parse-infix-expr (str)
   "Parse an infix math expression into a function."
   ;; First we parse it into AST
