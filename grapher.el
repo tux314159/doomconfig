@@ -74,7 +74,7 @@
         (let ((y (funcall f (/ x grapher-x-scale))))
           (when (<= (abs y) (/ grapher-y-size 2))
             (push (cons x y) points)))
-        (setq x (+ x grapher-x-scale))))
+        (setq x (succ x))))
     points))
 
 (defun grapher-plot-function (f)
