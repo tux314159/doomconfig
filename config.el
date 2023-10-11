@@ -83,6 +83,7 @@
 (add-hook! 'after-save-hook
   (if (string-match-p (regexp-quote "/home/isaac/.config/doom/") buffer-file-name)
       (shell-command "cd ~/.config/doom/; git add .; git commit -m 'auto'; git push")))
+(remove-hook 'doom-first-buffer-hook #'smartparens-global-mode)
 
 ;;; Keymappings
 (remove-hook 'doom-first-input-hook 'evil-snipe-mode)
