@@ -36,8 +36,47 @@
   "Condense a group of framebuffer cells into a 2x3 cell at pos."
   (let ((fb-x (* 2 (car pos)))
         (fb-y (* 3 (cdr pos)))
-        (braille '( ⠁ ⠃ ⠉ ⠙ ⠑ ⠋ ⠛ ⠓ ⠊ ⠚ ⠈ ⠘
-                    ⠄ ⠅ ⠇ ⠍ ⠝ ⠕ ⠏ ⠟ ⠗ ⠎ ⠞ ⠌ ⠜
-                    ⠤ ⠥ ⠧ ⠭ ⠽ ⠵ ⠯ ⠿ ⠷ ⠮ ⠾ ⠬ ⠼
-                    ⠠ ⠡ ⠣ ⠩ ⠹ ⠱ ⠫ ⠻ ⠳ ⠪ ⠺ ⠨ ⠸
-                    ⠀ ⠂ ⠆ ⠒ ⠲ ⠢ ⠖ ⠶ ⠦ ⠔ ⠴ ⠐ ⠰)))
+        (braille '(?\  ?⠁ ?⠃ ?⠉ ?⠙ ?⠑ ?⠋ ?⠛ ?⠓ ?⠊ ?⠚ ?⠈ ?⠘
+                   ?⠄ ?⠅ ?⠇ ?⠍ ?⠝ ?⠕ ?⠏ ?⠟ ?⠗ ?⠎ ?⠞ ?⠌ ?⠜
+                   ?⠤ ?⠥ ?⠧ ?⠭ ?⠽ ?⠵ ?⠯ ?⠿ ?⠷ ?⠮ ?⠾ ?⠬ ?⠼
+                   ?⠠ ?⠡ ?⠣ ?⠩ ?⠹ ?⠱ ?⠫ ?⠻ ?⠳ ?⠪ ?⠺ ?⠨ ?⠸
+                   ?⠂ ?⠆ ?⠒ ?⠲ ?⠢ ?⠖ ?⠶ ?⠦ ?⠔ ?⠴ ?⠐ ?⠰)))
+    (let* ((fb grapher-global-framebuf) ; lol
+           (patt (list (aref-2d fb (+ 0 fb-y) (+ 0 fb-x)) ; hardcoded teehee
+                       (aref-2d fb (+ 0 fb-y) (+ 1 fb-x))
+                       (aref-2d fb (+ 1 fb-y) (+ 0 fb-x))
+                       (aref-2d fb (+ 1 fb-y) (+ 1 fb-x))
+                       (aref-2d fb (+ 2 fb-y) (+ 0 fb-x))
+                       (aref-2d fb (+ 2 fb-y) (+ 1 fb-x)))))
+      ;; Here they come...
+      (cl-position patt
+                   '((nil nil nil nil niL nil) ; line 1
+                     (t nil nil nil nil nil)
+                     (t nil t nil nil nil)
+                     (t t nil nil nil nil)
+                     (t nil nil t nil nil)
+                     (t t t nil nil nil)
+                     (t t t t nil nil)
+                     (t nil t t nil nil)
+                     (nil t t nil nil nil)
+                     (nil t t t nil nil)
+                     (nil t nil nil nil nil)
+                     (nil t nil t nil nil)
+                     (nil nil nil nil t nil) ; line 2
+                     (t nil nil nil t nil)
+                     (t nil t nil t nil)
+                     (t t nil nil t nil)
+                     (t t nil t t nil)
+                     (t nil nil t t nil)
+                     (t t t nil t nil)
+                     (t t t t t nil)
+                     (t nil t t t nil)
+                     (nil t t nil t nil)
+                     (nil t t t t nil)
+                     (nil t nil nil t nil)
+                     (nil t nil t t nil)
+                     (nil nil nil nil t t) ; line 3
+                     (t nil nil nil t t)
+                     (t nil t nil t t)
+                     (t t nil nil t t)
+                     (
