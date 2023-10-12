@@ -4,7 +4,7 @@
 (load "~/.config/doom/util")
 
 (setq grapher-global-frame-width 128)
-(setq grapher-global-frame-height 44)
+(setq grapher-global-frame-height 30)
 (setq grapher-global-framebuf-width (* 2 grapher-global-frame-width))
 (setq grapher-global-framebuf-height (* 3 grapher-global-frame-height))
 ;; Create global framebuf
@@ -33,7 +33,7 @@
   "Condense a group of framebufer cells into a 2x3 cell at pos."
   (let ((fb-x (* 2 x))
         (fb-y (* 3 y))
-        (braille '(?\  ?⠁ ?⠃ ?⠉ ?⠙ ?⠑ ?⠋ ?⠛ ?⠓ ?⠊ ?⠚ ?⠈ ?⠘
+        (braille '(?⠀ ?⠁ ?⠃ ?⠉ ?⠙ ?⠑ ?⠋ ?⠛ ?⠓ ?⠊ ?⠚ ?⠈ ?⠘
                    ?⠄ ?⠅ ?⠇ ?⠍ ?⠝ ?⠕ ?⠏ ?⠟ ?⠗ ?⠎ ?⠞ ?⠌ ?⠜
                    ?⠤ ?⠥ ?⠧ ?⠭ ?⠽ ?⠵ ?⠯ ?⠿ ?⠷ ?⠮ ?⠾ ?⠬ ?⠼
                    ?⠠ ?⠡ ?⠣ ?⠩ ?⠹ ?⠱ ?⠫ ?⠻ ?⠳ ?⠪ ?⠺ ?⠨ ?⠸
@@ -58,14 +58,12 @@
 
 (defun grapher--goto-realgrid-pos (x y)
   "Go to a coordinate (in a buffer that has already been set up)."
-  (goto-char (+ x (* (succ grapher-global-frame-width) y))))
+  ;; NOTE: 0-indexed
+  (goto-char (+ (succ x) (* (succ grapher-global-frame-width) y))))
 
 
 (defun grapher-render-framebuf ()
   (loopn i grapher-global-frame-height
          (loopn j grapher-global-frame-width
                 (grapher--goto-realgrid-pos j i)
-                (message (number-to-string j))
-                (message (number-to-string i))
-                (message "---")
                 (overwrite-char (grapher--framebuf-condense-cell j i)))))
