@@ -10,11 +10,11 @@
 
 (defmacro for (start stop step &rest body)
   "Loop n times"
-  `(let (',start)
-     (while (not ',stop)
+  `(let (,start)
+     (while (not ,stop)
        (progn
          ,@body
-         (setq ',(car start) ',step)))))
+         (setq ,(car start) ,step)))))
 
 (defun c2s (c)
   "Convert character to a string"
