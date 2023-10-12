@@ -5,7 +5,7 @@
 
 ;; Axes
 (setq grapher-x-size 127)
-(setq grapher-y-size 45)
+(setq grapher-y-size 43)
 (setq grapher-x-scale 4)
 
 (defun grapher-calc-pos (x y)
