@@ -65,5 +65,7 @@
   (loopn i grapher-global-frame-height
          (loopn j grapher-global-frame-width
                 (grapher--goto-realgrid-pos j i)
-                (message (c2s (grapher--framebuf-condense-cell j i)))
+                (message (number-to-string j))
+                (message (number-to-string i))
+                (message "---")
                 (overwrite-char (grapher--framebuf-condense-cell j i)))))
