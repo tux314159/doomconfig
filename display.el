@@ -4,7 +4,7 @@
 (load "~/.config/doom/util")
 
 (setq grapher-global-frame-width 128)
-(setq grapher-global-frame-height 45)
+(setq grapher-global-frame-height 44)
 (setq grapher-global-framebuf-width (* 2 grapher-global-frame-width))
 (setq grapher-global-framebuf-height (* 3 grapher-global-frame-height))
 ;; Create global framebuf
@@ -15,6 +15,7 @@
 ;; Framebuf primitives
 (defun grapher-prepare-screen ()
   "Clear the buffer and draw enough spaces"
+  (erase-buffer)
   (let ((blankl (make-string grapher-global-frame-width ? )))
     (loopn _ grapher-global-frame-height
            (insert blankl)
@@ -45,24 +46,24 @@
                        (aref-2d fb (+ 2 fb-y) (+ 0 fb-x))
                        (aref-2d fb (+ 2 fb-y) (+ 1 fb-x)))))
       ;; Here they come...
-      (aref
-       braille
+      (nth
        (cl-position patt
-                   '((nil nil nil nil nil nil) (t nil nil nil nil nil) (t nil t nil nil nil) (t t nil nil nil nil) (t t nil t nil nil) (t nil nil t nil nil) (t t t nil nil nil) (t t t t nil nil) (t nil t t nil nil) (nil t t nil nil nil) (nil t t t nil nil) (nil t nil nil nil nil) (nil t nil t nil nil)
-                     (nil nil nil nil t nil) (t nil nil nil t nil) (t nil t nil t nil) (t t nil nil t nil) (t t nil t t nil) (t nil nil t t nil) (t t t nil t nil) (t t t t t nil) (t nil t t t nil) (nil t t nil t nil) (nil t t t t nil) (nil t nil nil t nil) (nil t nil t t nil)
-                     (nil nil nil nil t t) (t nil nil nil t t) (t nil t nil t t) (t t nil nil t t) (t t nil t t t) (t nil nil t t t) (t t t nil t t) (t t t t t t) (t nil t t t t) (nil t t nil t t) (nil t t t t t) (nil t nil nil t t) (nil t nil t t t)
-                     (nil nil nil nil nil t) (t nil nil nil nil t) (t nil t nil nil t) (t t nil nil nil t) (t t nil t nil t) (t nil nil t nil t) (t t t nil nil t) (t t t t nil t) (t nil t t nil t) (nil t t nil nil t) (nil t t t nil t) (nil t nil nil nil t) (nil t nil t nil t)
-                     (nil nil t nil nil nil) (nil nil t nil t nil) (nil nil t t nil nil) (nil nil t t nil t) (nil nil t nil nil t) (nil nil t t t nil) (nil nil t t t t) (nil nil t nil t t) (nil nil nil t t nil) (nil nil nil t t t) (nil nil nil t nil nil) (nil nil nil t nil t))
-                   :test equal)))))
+                    '((nil nil nil nil nil nil) (t nil nil nil nil nil) (t nil t nil nil nil) (t t nil nil nil nil) (t t nil t nil nil) (t nil nil t nil nil) (t t t nil nil nil) (t t t t nil nil) (t nil t t nil nil) (nil t t nil nil nil) (nil t t t nil nil) (nil t nil nil nil nil) (nil t nil t nil nil)
+                      (nil nil nil nil t nil) (t nil nil nil t nil) (t nil t nil t nil) (t t nil nil t nil) (t t nil t t nil) (t nil nil t t nil) (t t t nil t nil) (t t t t t nil) (t nil t t t nil) (nil t t nil t nil) (nil t t t t nil) (nil t nil nil t nil) (nil t nil t t nil)
+                      (nil nil nil nil t t) (t nil nil nil t t) (t nil t nil t t) (t t nil nil t t) (t t nil t t t) (t nil nil t t t) (t t t nil t t) (t t t t t t) (t nil t t t t) (nil t t nil t t) (nil t t t t t) (nil t nil nil t t) (nil t nil t t t)
+                      (nil nil nil nil nil t) (t nil nil nil nil t) (t nil t nil nil t) (t t nil nil nil t) (t t nil t nil t) (t nil nil t nil t) (t t t nil nil t) (t t t t nil t) (t nil t t nil t) (nil t t nil nil t) (nil t t t nil t) (nil t nil nil nil t) (nil t nil t nil t)
+                      (nil nil t nil nil nil) (nil nil t nil t nil) (nil nil t t nil nil) (nil nil t t nil t) (nil nil t nil nil t) (nil nil t t t nil) (nil nil t t t t) (nil nil t nil t t) (nil nil nil t t nil) (nil nil nil t t t) (nil nil nil t nil nil) (nil nil nil t nil t))
+                    :test #'equal)
+       braille))))
 
 (defun grapher--goto-realgrid-pos (x y)
   "Go to a coordinate (in a buffer that has already been set up)."
-  (goto-char (+ (* (succ grapher-x-size) y)
-                (* x grapher-x-scale))))
+  (goto-char (+ x (* (succ grapher-global-frame-width) y))))
 
 
 (defun grapher-render-framebuf ()
   (loopn i grapher-global-frame-height
          (loopn j grapher-global-frame-width
                 (grapher--goto-realgrid-pos j i)
+                (message (c2s (grapher--framebuf-condense-cell j i)))
                 (overwrite-char (grapher--framebuf-condense-cell j i)))))
