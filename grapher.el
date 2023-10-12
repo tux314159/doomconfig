@@ -67,15 +67,17 @@
 
 (defun grapher-gen-interval (f)
   "Generate x and y coordinates over the whole x-range for a function."
-  (let ((points '())
-        (x (- (/ grapher-x-size grapher-x-scale 2))))
-    (while (<= x (/ grapher-x-size grapher-x-scale 2))
-      (progn
-        (let ((y (funcall f (/ x grapher-x-scale))))
-          (when (<= (abs y) (/ grapher-y-size 2))
-            (push (cons x y) points)))
-        (setq x (succ x))))
-    points))
+  (let* ((max-x (/ (* grapher-x-size grapher-x-scale) 2))
+         (min-x (- max-x)))
+    (let ((points '())
+          (x min-x))
+      (while (<= x (/ grapher-x-size grapher-x-scale 2))
+        (progn
+          (let ((y (funcall f (/ x grapher-x-scale))))
+            (when (<= (abs y) (/ grapher-y-size 2))
+              (push (cons x y) points)))
+          (setq x (succ x))))
+      points)))
 
 (defun grapher-plot-function (f)
   "Plots a function."
