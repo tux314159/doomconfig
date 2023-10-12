@@ -14,7 +14,7 @@
      (while (not ',stop)
        (progn
          ,@body
-         (setq ,ivar ',step)))))
+         (setq ',(car start) ',step)))))
 
 (defun c2s (c)
   "Convert character to a string"
