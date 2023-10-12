@@ -23,7 +23,6 @@
 ;; accept. For example:
 ;;
 (setq doom-font (font-spec :family "JetBrains Mono" :size 15))
-(setq doom-symbol-font (font-spec :family "Braille" :size 15))
 
 ;;
 ;; If you or Emacs can't find your font, use 'M-x describe-font' to look them
