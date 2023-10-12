@@ -102,4 +102,17 @@
                      (nil t nil nil nil t)
                      (nil t nil t nil t)
                      (nil nil t nil nil nil) ; line 5
-                     (nil nil t nil t nil
+                     (nil nil t nil t nil)
+                     (nil nil t t nil nil)
+                     (nil nil t t nil t)
+                     (nil nil t nil nil t)
+                     (nil nil t t t nil)
+                     (nil nil t t t t)
+                     (nil nil t nil t t)
+                     (nil nil t t t nil)
+                     (nil nil t t t t)
+                     (nil nil t nil t t)
+                     (nil nil nil t t nil)
+                     (nil nil nil t t t)
+                     (nil nil nil t nil nil)
+                     (nil nil nil t nil t))
