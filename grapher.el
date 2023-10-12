@@ -5,7 +5,7 @@
 ;; Axes
 (setq grapher-x-size 127)
 (setq grapher-y-size 45)
-(setq grapher-x-scale 2)
+(setq grapher-x-scale 4)
 
 (defmacro loopn (ivar n &rest body)
   "Loop n times"
@@ -37,7 +37,7 @@
           (+ (/ grapher-x-size 2) 2))))
     (+ zero
        (- (* (succ grapher-x-size) (round y)))
-       (* (round x) grapher-x-scale))))
+       (round (* x grapher-x-scale)))))
 
 (defun grapher-draw-axes ()
   "Initialise the graph axes, should be called on a blank buffer."
@@ -71,12 +71,12 @@
          (min-x (- max-x)))
     (let ((points '())
           (x min-x))
-      (while (<= x (/ grapher-x-size grapher-x-scale 2))
+      (while (<= x max-x)
         (progn
-          (let ((y (funcall f (/ x grapher-x-scale))))
+          (let ((y (funcall f x)))
             (when (<= (abs y) (/ grapher-y-size 2))
               (push (cons x y) points)))
-          (setq x (succ x))))
+          (setq x (+ x 0.1))))
       points)))
 
 (defun grapher-plot-function (f)
