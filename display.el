@@ -32,10 +32,10 @@
         (y (cdr pos)))
     (aset (aref grapher-global-framebuf y) x nil)))
 
-(defun grapher--framebuf-condense-cell (pos)
+(defun grapher--framebuf-condense-cell (x y)
   "Condense a group of framebuffer cells into a 2x3 cell at pos."
-  (let ((fb-x (* 2 (car pos)))
-        (fb-y (* 3 (cdr pos)))
+  (let ((fb-x (* 2 x))
+        (fb-y (* 3 y))
         (braille '(?\  ?⠁ ?⠃ ?⠉ ?⠙ ?⠑ ?⠋ ?⠛ ?⠓ ?⠊ ?⠚ ?⠈ ?⠘
                    ?⠄ ?⠅ ?⠇ ?⠍ ?⠝ ?⠕ ?⠏ ?⠟ ?⠗ ?⠎ ?⠞ ?⠌ ?⠜
                    ?⠤ ?⠥ ?⠧ ?⠭ ?⠽ ?⠵ ?⠯ ?⠿ ?⠷ ?⠮ ?⠾ ?⠬ ?⠼
@@ -57,4 +57,16 @@
                      (nil nil nil nil t t) (t nil nil nil t t) (t nil t nil t t) (t t nil nil t t) (t t nil t t t) (t nil nil t t t) (t t t nil t t) (t t t t t t) (t nil t t t t) (nil t t nil t t) (nil t t t t t) (nil t nil nil t t) (nil t nil t t t)
                      (nil nil nil nil nil t) (t nil nil nil nil t) (t nil t nil nil t) (t t nil nil nil t) (t t nil t nil t) (t nil nil t nil t) (t t t nil nil t) (t t t t nil t) (t nil t t nil t) (nil t t nil nil t) (nil t t t nil t) (nil t nil nil nil t) (nil t nil t nil t)
                      (nil nil t nil nil nil) (nil nil t nil t nil) (nil nil t t nil nil) (nil nil t t nil t) (nil nil t nil nil t) (nil nil t t t nil) (nil nil t t t t) (nil nil t nil t t) (nil nil nil t t nil) (nil nil nil t t t) (nil nil nil t nil nil) (nil nil nil t nil t))
-                   :test equal))
+                   :test equal)))))
+
+(defun grapher--goto-realgrid-pos (x y)
+  "Go to a coordinate (in a buffer that has already been set up)."
+  (goto-char (+ (* (succ grapher-x-size) y)
+                (* x grapher-x-scale))))
+
+
+(defun grapher-render-framebuf ()
+  (loopn i (/ 3 grapher-global-framebuf-height)
+         (loopn j (/ 2 grapher-global-framebuf-width)
+                (grapher--goto-realgrid-pos j i)
+                (overwrite-char (grapher--framebuf-condense-cell j i)))))
