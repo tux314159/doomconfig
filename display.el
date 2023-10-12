@@ -7,33 +7,29 @@
 (setq grapher-global-frame-height 45)
 (setq grapher-global-framebuf-width (* 2 grapher-global-frame-width))
 (setq grapher-global-framebuf-height (* 3 grapher-global-frame-height))
-;; Create global framebuffer
+;; Create global framebuf
 (setq grapher-global-framebuf (make-vector grapher-global-framebuf-height nil))
 (loopn i grapher-global-framebuf-height
        (aset grapher-global-framebuf i (make-vector grapher-global-framebuf-width nil)))
 
-;; Framebuffer primitives
+;; Framebuf primitives
 (defun grapher-prepare-screen ()
   "Clear the buffer and draw enough spaces"
-  (let ((blankl (make-string grapher-x-size ? )))
-    (loopn _ (/ grapher-global-framebuffer-width 2)
+  (let ((blankl (make-string grapher-global-frame-width ? )))
+    (loopn _ grapher-global-frame-height
            (insert blankl)
            (insert (c2s ?\n)))))
 
-(defun grapher-global-framebuf-on (pos)
+(defun grapher-global-framebuf-on (x y)
   "Turn on a pixel"
-  (let ((x (car pos))
-        (y (cdr pos)))
-    (aset (aref grapher-global-framebuffer y) x t)))
+  (aset (aref grapher-global-framebuf y) x t))
 
-(defun grapher-global-framebuf-off (pos)
+(defun grapher-global-framebuf-off (x y)
   "Turn off a pixel"
-  (let ((x (car pos))
-        (y (cdr pos)))
-    (aset (aref grapher-global-framebuf y) x nil)))
+  (aset (aref grapher-global-framebuf y) x nil))
 
 (defun grapher--framebuf-condense-cell (x y)
-  "Condense a group of framebuffer cells into a 2x3 cell at pos."
+  "Condense a group of framebufer cells into a 2x3 cell at pos."
   (let ((fb-x (* 2 x))
         (fb-y (* 3 y))
         (braille '(?\  ?⠁ ?⠃ ?⠉ ?⠙ ?⠑ ?⠋ ?⠛ ?⠓ ?⠊ ?⠚ ?⠈ ?⠘
@@ -66,7 +62,7 @@
 
 
 (defun grapher-render-framebuf ()
-  (loopn i (/ 3 grapher-global-framebuf-height)
-         (loopn j (/ 2 grapher-global-framebuf-width)
+  (loopn i grapher-global-frame-height
+         (loopn j grapher-global-frame-width
                 (grapher--goto-realgrid-pos j i)
                 (overwrite-char (grapher--framebuf-condense-cell j i)))))
