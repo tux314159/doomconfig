@@ -1,33 +1,12 @@
 ;;; Bad graphing calculator
 
+(load "~/.config/doom/util")
 (load "~/.config/doom/parse-infix-expr")
 
 ;; Axes
 (setq grapher-x-size 127)
 (setq grapher-y-size 45)
 (setq grapher-x-scale 4)
-
-(defmacro loopn (ivar n &rest body)
-  "Loop n times"
-  `(let ((,ivar 0))
-     (while (< ,ivar ,n)
-       (progn
-         ,@body
-         (setq ,ivar (+ ,ivar 1))))))
-
-(defun c2s (c)
-  "Convert character to a string"
-  (make-string 1 c))
-
-(defun overwrite-char (c)
-  (delete-char 1)
-  (insert (c2s c)))
-
-(defun succ (n)
-  (+ n 1))
-
-(defun pred (n)
-  (+ n 1))
 
 (defun grapher-calc-pos (x y)
   "Calculate the point of coordinates"
