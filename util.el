@@ -8,6 +8,14 @@
          ,@body
          (setq ,ivar (+ ,ivar 1))))))
 
+(defmacro for (start stop step &rest body)
+  "Loop n times"
+  `(let (',start)
+     (while (not ',stop)
+       (progn
+         ,@body
+         (setq ,ivar ',step)))))
+
 (defun c2s (c)
   "Convert character to a string"
   (make-string 1 c))
