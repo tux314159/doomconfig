@@ -49,11 +49,14 @@
                        (aref-2d fb (+ 2 fb-y) (+ 0 fb-x))
                        (aref-2d fb (+ 2 fb-y) (+ 1 fb-x)))))
       ;; Here they come...
-      (cl-position patt
-                   '((nil nil nil nil niL nil) ; line 1
+      (aref
+       braille
+       (cl-position patt
+                   '((nil nil nil nil nil nil) ; line 1
                      (t nil nil nil nil nil)
                      (t nil t nil nil nil)
                      (t t nil nil nil nil)
+                     (t t nil t nil nil)
                      (t nil nil t nil nil)
                      (t t t nil nil nil)
                      (t t t t nil nil)
@@ -116,3 +119,4 @@
                      (nil nil nil t t t)
                      (nil nil nil t nil nil)
                      (nil nil nil t nil t))
+                   :test equal))
