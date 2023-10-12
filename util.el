@@ -21,3 +21,6 @@
 
 (defun pred (n)
   (+ n 1))
+
+(defun aref-2d (arr i j)
+  (aref (aref arr i) j))
